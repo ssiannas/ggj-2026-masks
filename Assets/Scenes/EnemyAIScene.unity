@@ -241,9 +241,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 17182506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03b0f01251ea4a47a2abaed20097300, type: 3}
+  m_Script: {fileID: 11500000, guid: 408cc8a98e6a41beb6b4a52e3748a834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  moveSpeed: 5
+  rotationSpeed: 10
+  waypointReachedThreshold: 0.3
+  pathUpdateInterval: 0.5
+  targetLostTimeout: 3
+  playerTag: Player
+  detectionRange: 20
+  alwaysChase: 1
+  drawPath: 1
+  pathColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +567,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &913397786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 913397788}
+  - component: {fileID: 913397787}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &913397787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913397786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8285d05cf6404a54abc67c0d22a1f3f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Pathfinding.PathfindingGrid
+  gridWorldSize: {x: 50, y: 50}
+  nodeRadius: 0.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  drawGizmos: 1
+  drawOnlyUnwalkable: 1
+  walkableColor: {r: 0, g: 1, b: 0, a: 0.3}
+  unwalkableColor: {r: 1, g: 0, b: 0, a: 0.7}
+  gridBoundsColor: {r: 0, g: 1, b: 1, a: 1}
+--- !u!4 &913397788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913397786}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -8.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1298645486
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,8 +745,8 @@ GameObject:
   - component: {fileID: 1395936224}
   - component: {fileID: 1395936223}
   - component: {fileID: 1395936222}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 6
+  m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +845,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1772555108
+--- !u!1 &1992727533
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -789,34 +853,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1772555110}
-  - component: {fileID: 1772555109}
+  - component: {fileID: 1992727535}
+  - component: {fileID: 1992727534}
   m_Layer: 0
-  m_Name: GridManager
+  m_Name: Pathfinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1772555109
+--- !u!114 &1992727534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772555108}
+  m_GameObject: {fileID: 1992727533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8285d05cf6404a54abc67c0d22a1f3f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e20615702f24af88d0c67455a69559a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!4 &1772555110
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Pathfinding.Pathfinder
+  maxIterations: 1000
+--- !u!4 &1992727535
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772555108}
+  m_GameObject: {fileID: 1992727533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.28437, y: 1, z: -8.1354}
@@ -835,4 +900,5 @@ SceneRoots:
   - {fileID: 1298645490}
   - {fileID: 17182510}
   - {fileID: 1395936225}
-  - {fileID: 1772555110}
+  - {fileID: 1992727535}
+  - {fileID: 913397788}
