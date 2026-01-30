@@ -6,15 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5.0f;
     private Rigidbody rb;
+    private Vector2 moveDirection;
 
-    // Use to assign a callback for when attack is triggered
+    // Dash state
+    private bool isDashing = false;
+    private float dashStartTime;
+
+    // Attacking
     public UnityAction OnAttackTriggered;
 
+    // Health
     [SerializeField] private float maxHealth = 100.0f;
     private float _health;
-    
     public UnityAction OnPlayerDeath;
-
     public float Health
     {
         get => _health;
@@ -27,6 +31,11 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    
+    // Dashing
+    [SerializeField] private float dashSpeed = 15.0f;
+    [SerializeField] private float dashDurationMs = 20.0f;
+    public UnityAction OnDashTriggered;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -35,19 +44,32 @@ public class PlayerController : MonoBehaviour
         OnAttackTriggered += HandleAttack;
         _health = maxHealth;
         OnPlayerDeath += HandlePlayerDeath;
+        OnDashTriggered += HandleDash;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Check if dash duration has expired
+        if (isDashing && (Time.time - dashStartTime) * 1000 >= dashDurationMs)
+        {
+            isDashing = false;
+        }
+
+        // Apply movement
+        if (isDashing)
+        {
+            rb.linearVelocity = dashSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
+        }
+        else
+        {
+            rb.linearVelocity = moveSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
+        }
     }
 
     void OnMove(InputValue value)
     {
-        var direction = value.Get<Vector2>();
-
-        rb.linearVelocity = moveSpeed * new Vector3(direction.x, 0, direction.y);
+        moveDirection = value.Get<Vector2>();
     }
 
     void OnAttack(InputValue value)
@@ -60,6 +82,17 @@ public class PlayerController : MonoBehaviour
         if (shouldAttack)
         {
             OnAttackTriggered.Invoke();
+        }
+    }
+
+    void OnDash(InputValue value)
+    {
+        var dashButton = value.Get<float>();
+        var shouldDash = dashButton > 0.5f;
+
+        if (shouldDash)
+        {
+            OnDashTriggered.Invoke();
         }
     }
 
@@ -76,5 +109,11 @@ public class PlayerController : MonoBehaviour
     public void ApplyDamage(float damage)
     {
         Health -= damage;
+    }
+
+    void HandleDash()
+    {
+        isDashing = true;
+        dashStartTime = Time.time;
     }
 }
