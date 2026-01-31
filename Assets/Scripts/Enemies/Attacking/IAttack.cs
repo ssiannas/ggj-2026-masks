@@ -8,6 +8,8 @@ namespace ggj_2026_masks.Enemies.Attacking
         float AttackCooldown { get; }
         bool IsAttacking { get; }
         bool CanAttack { get; }
+        bool MaintainDistance { get; } 
+
         
         void StartAttack(Transform target);
         void CancelAttack();

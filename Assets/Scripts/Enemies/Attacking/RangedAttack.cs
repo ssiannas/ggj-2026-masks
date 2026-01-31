@@ -21,6 +21,7 @@ namespace ggj_2026_masks.Enemies.Attacking
         protected override void Awake()
         {
             base.Awake();
+            maintainsDistance = true;
 
             if (!firePoint)
                 firePoint = transform;

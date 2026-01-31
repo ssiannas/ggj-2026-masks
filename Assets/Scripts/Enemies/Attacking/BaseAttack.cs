@@ -23,6 +23,9 @@ namespace ggj_2026_masks.Enemies.Attacking
         public float AttackCooldown => attackCooldown;
         public bool IsAttacking => _isAttacking;
         public bool CanAttack => _cooldownTimer <= 0f && !_isAttacking;
+        
+        [SerializeField] protected bool maintainsDistance = false;
+        public bool MaintainDistance => maintainsDistance;
 
         protected virtual void Awake()
         {
@@ -72,7 +75,7 @@ namespace ggj_2026_masks.Enemies.Attacking
             OnAttackFinish();
             _currentTarget = null;
         }
-
+        
         protected abstract void OnAttackStart();
         protected abstract void OnAttackFinish();
     }

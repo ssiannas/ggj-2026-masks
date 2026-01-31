@@ -212,7 +212,26 @@ namespace ggj_2026_masks.Enemies
                     break;
 
                 case EnemyState.Attacking:
-                    _movement.Stop();
+                    if (_attack.MaintainDistance)
+                    {
+                        var desiredDistance = _attack.AttackRange * 0.9f;
+                        var distanceToTarget = GetDistanceToTarget();
+        
+                        if (distanceToTarget < desiredDistance)
+                        {
+                            var awayDirection = (transform.position - _target.position).normalized;
+                            awayDirection.y = 0;
+                            _movement.MoveInDirection(awayDirection);
+                        }
+                        else
+                        {
+                            _movement.Stop();
+                        }
+                    }
+                    else
+                    {
+                        _movement.Stop();
+                    }
                     if (!_target)
                     {
                          ExitAttackState();
