@@ -1,5 +1,4 @@
 using System;
-using ggj_2026_masks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -29,11 +28,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 15.0f;
     [SerializeField] private float dashDurationMs = 20.0f;
     public UnityEvent OnDashTriggered;
-    private float _health;
-    private float dashStartTime;
 
     // Dash state
     public bool isDashing;
+    private float _health;
+    private float dashStartTime;
     private Vector2 moveDirection;
     private Rigidbody rb;
 
@@ -58,10 +57,7 @@ public class PlayerController : MonoBehaviour
         _health = maxHealth;
         OnPlayerDeath.AddListener(HandlePlayerDeath);
         OnDashTriggered.AddListener(HandleDash);
-        if (_playerUIController is not null)
-        {
-            OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
-        }
+        if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
     }
 
     // Update is called once per frame
@@ -72,7 +68,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = Vector3.zero;
             return;
-        };
+        }
+
+        ;
 
         // Check if dash duration has expired
         if (isDashing && (Time.time - dashStartTime) * 1000 >= dashDurationMs) isDashing = false;
