@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8478977898787748089}
   - component: {fileID: 4325663964383839648}
   - component: {fileID: 2324013167372967720}
+  - component: {fileID: 3483930673943010814}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -122,6 +123,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3483930673943010814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823826142618561569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5032b06bed564498c047673bc569f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.InteractionController
 --- !u!1 &2080162743180549440
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ public class FloatEvent : UnityEvent<float>
 {
 }
 
-[RequireComponent(typeof(PlayerCollisionContext))]
 public class PlayerController : MonoBehaviour
 {
     // UI
@@ -30,13 +29,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashSpeed = 15.0f;
     [SerializeField] private float dashDurationMs = 20.0f;
     public UnityEvent OnDashTriggered;
-    private float _health;
-    private float dashStartTime;
 
     // Dash state
     public bool isDashing;
+    private float _health;
+    private float dashStartTime;
     private Vector2 moveDirection;
     private Rigidbody rb;
+    
+    // Interactions
+    [SerializeField] private InteractionController _interactionController;
 
     public bool isAlive => Health > 0;
 
@@ -59,10 +61,8 @@ public class PlayerController : MonoBehaviour
         _health = maxHealth;
         OnPlayerDeath.AddListener(HandlePlayerDeath);
         OnDashTriggered.AddListener(HandleDash);
-        if (_playerUIController is not null)
-        {
-            OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
-        }
+        if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
+        _interactionController = GetComponent<InteractionController>();
     }
 
     // Update is called once per frame
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = Vector3.zero;
             return;
-        };
+        }
 
         // Check if dash duration has expired
         if (isDashing && (Time.time - dashStartTime) * 1000 >= dashDurationMs) isDashing = false;
@@ -112,6 +112,16 @@ public class PlayerController : MonoBehaviour
     {
         var testDamageButton = value.Get<float>();
         if (testDamageButton > 0.5f) ApplyDamage(0.2f * maxHealth);
+    }
+
+    private void OnInteract(InputValue value)
+    {
+        var interactButton = value.Get<float>();
+        if (interactButton > 0.5f)
+        {
+            Debug.Log("Player pressed interact.");
+            _interactionController.TryInteract();
+        };
     }
 
     private void HandleAttack()
