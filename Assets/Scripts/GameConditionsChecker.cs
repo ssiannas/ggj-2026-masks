@@ -1,3 +1,4 @@
+using System.Linq;
 using ggj_2026_masks.Enemies;
 using UnityEngine;
 
@@ -23,5 +24,15 @@ namespace ggj_2026_masks
             var enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
             return enemies.Length == 0;
         }
+        
+
+        public bool AllPlayersDead()
+        {
+            var players = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+            var allDead = players.All(p => !p.isAlive) || players.Length == 0;
+
+            return allDead;
+        }
+        
     }
 }

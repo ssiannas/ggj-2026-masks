@@ -26,13 +26,9 @@ namespace ggj_2026_masks
         {
             Debug.Log($"{player.tag} died!");
 
-            if (AllPlayersDied()) onAllPlayersDied.Invoke();
+            if (GameConditionsChecker.Instance.AllPlayersDead()) onAllPlayersDied.Invoke();
         }
 
-        private bool AllPlayersDied()
-        {
-            return _players.All(p => !p.isAlive);
-        }
 
         private void HandleAllPlayersDied()
         {
