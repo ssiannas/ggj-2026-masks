@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4325663964383839648}
   - component: {fileID: 2324013167372967720}
   - component: {fileID: 3483930673943010814}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777960644000681818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 6190302837162827928}
   - component: {fileID: 5959128171139136285}
   - component: {fileID: 2614110420052943267}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

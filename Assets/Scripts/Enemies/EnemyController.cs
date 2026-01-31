@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ggj_2026_masks.Enemies.Attacking;
 
 namespace ggj_2026_masks.Enemies
 {
@@ -12,6 +13,7 @@ namespace ggj_2026_masks.Enemies
         [SerializeField] private float detectionRange = 5f;
         [SerializeField] private LayerMask opaqueObstacles;
         [SerializeField] private bool alwaysChase = false;
+        [SerializeField] private float playerDetectionPeriodSec = 0.5f;
         [SerializeField] private string[] playerTags = {"Player 1", "Player 2"};
 
         [Header("Debug")]
@@ -20,7 +22,10 @@ namespace ggj_2026_masks.Enemies
         private EnemyMovementController _movement;
         private EnemyPathfindingController _pathfinding;
 
+        private IAttack _attack;
+
         private Transform _target;
+        private float _playerDetectionTimer = 0f;
         private bool _hasTarget;
         private Vector3 _lastKnownTargetPosition;
         private readonly List<GameObject> _players = new List<GameObject>();
@@ -42,6 +47,7 @@ namespace ggj_2026_masks.Enemies
         {
             _movement = GetComponent<EnemyMovementController>();
             _pathfinding = GetComponent<EnemyPathfindingController>();
+            _attack = GetComponent<IAttack>();
         }
 
         private void Start()
@@ -81,21 +87,20 @@ namespace ggj_2026_masks.Enemies
 
         private void UpdatePerception()
         {
-            if (_target == null)
-            {
-                TryAcquireTarget();
-                return;
-            }
+            _playerDetectionTimer += Time.deltaTime;
+            if (_playerDetectionTimer < playerDetectionPeriodSec) return;
+    
+            _playerDetectionTimer = 0f;
+    
+            var previousTarget = _target;
+            TryAcquireTarget();
 
-            bool canSeeTarget = HasLineOfSight(_target.position);
-            bool inRange = alwaysChase || Vector3.Distance(transform.position, _target.position) <= detectionRange;
-
-            if (canSeeTarget && inRange)
+            if (_target)
             {
                 _lastKnownTargetPosition = _target.position;
                 _hasTarget = true;
 
-                if (CurrentState == EnemyState.SearchingLastKnown || CurrentState == EnemyState.Idle)
+                if (CurrentState != EnemyState.Chasing && CurrentState != EnemyState.Attacking)
                 {
                     CurrentState = EnemyState.Chasing;
                     _pathfinding.ForcePathUpdate();
@@ -103,12 +108,13 @@ namespace ggj_2026_masks.Enemies
             }
             else
             {
-                if (CurrentState == EnemyState.Chasing)
+                _hasTarget = false;
+
+                if (previousTarget && CurrentState == EnemyState.Chasing)
                 {
                     CurrentState = EnemyState.SearchingLastKnown;
                     _pathfinding.ForcePathUpdate();
                 }
-                _hasTarget = false;
             }
         }
         
@@ -145,7 +151,7 @@ namespace ggj_2026_masks.Enemies
             _hasTarget = true;
         }
 
-        public float GetDistanceToTarget()
+        private float GetDistanceToTarget()
         {
             if (_target == null)
                 return float.MaxValue;
@@ -153,10 +159,15 @@ namespace ggj_2026_masks.Enemies
             return Vector3.Distance(transform.position, _target.position);
         }
 
+        private bool IsInAttackRange()
+        {
+            if (_attack == null || _target == null) return false;
+            return GetDistanceToTarget() <= _attack.AttackRange;
+        }
 
         private void UpdatePath()
         {
-            if (_hasTarget && _target != null)
+            if (_hasTarget && _target)
             {
                 _pathfinding.RequestPath(transform.position, _lastKnownTargetPosition);
                 return;
@@ -186,13 +197,62 @@ namespace ggj_2026_masks.Enemies
                     break;
 
                 case EnemyState.Chasing:
+                    if (_attack != null && IsInAttackRange() && _attack.CanAttack)
+                    {
+                        EnterAttackState();
+                    }
+                    else
+                    {
+                        FollowPath();
+                    }
+                    break;
+
                 case EnemyState.SearchingLastKnown:
                     FollowPath();
                     break;
 
                 case EnemyState.Attacking:
-                    _movement.Stop();
+                    if (_attack.MaintainDistance)
+                    {
+                        var desiredDistance = _attack.AttackRange * 0.9f;
+                        var distanceToTarget = GetDistanceToTarget();
+        
+                        if (distanceToTarget < desiredDistance)
+                        {
+                            var awayDirection = (transform.position - _target.position).normalized;
+                            awayDirection.y = 0;
+                            _movement.MoveInDirection(awayDirection);
+                        }
+                        else
+                        {
+                            _movement.Stop();
+                        }
+                    }
+                    else
+                    {
+                        _movement.Stop();
+                    }
+                    if (!_target)
+                    {
+                         ExitAttackState();
+                         break;
+                    }
+                    var dirToTarget = _target.position - transform.position;
+                    _movement.FaceTowards(dirToTarget);
+
+                    if (!_attack.IsAttacking)
+                    {
+                        if (!_hasTarget || !IsInAttackRange())
+                        {
+                            ExitAttackState();
+                        }
+                        else if (_attack.CanAttack)
+                        {
+                            _attack.StartAttack(_target);
+                        }
+                    }
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -250,10 +310,13 @@ namespace ggj_2026_masks.Enemies
         {
             CurrentState = EnemyState.Attacking;
             _movement.Stop();
+            _attack?.StartAttack(_target);
         }
 
         public void ExitAttackState()
         {
+            _attack?.CancelAttack();
+
             if (_hasTarget)
             {
                 CurrentState = EnemyState.Chasing;
@@ -264,6 +327,7 @@ namespace ggj_2026_masks.Enemies
                 CurrentState = EnemyState.Idle;
             }
         }
+
 
         private void OnDrawGizmosSelected()
         {

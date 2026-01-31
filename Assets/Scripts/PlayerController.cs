@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-        Debug.Log("Attacking!");
+       // Debug.Log("Attacking!");
     }
 
     private void HandlePlayerDeath()
