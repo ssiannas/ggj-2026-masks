@@ -8,14 +8,15 @@ namespace ggj_2026_masks.Pathfinding
     {
         public static PathfindingGrid Instance { get; private set; }
 
-        [Header("Grid Settings")] [SerializeField]
-        private Vector2 gridWorldSize = new Vector2(50f, 50f);
-
+        [Header("Grid Settings")]
+        [SerializeField] private Vector2 gridWorldSize = new Vector2(50f, 50f);
         [SerializeField] private float nodeRadius = 0.5f;
         [SerializeField] private LayerMask[] obstacleLayers;
 
-        [Header("Debug")] [SerializeField] private bool drawGizmos = true;
+        [Header("Debug")] 
+        [SerializeField] private bool drawGizmos = true;
         [SerializeField] private bool drawOnlyUnwalkable = false;
+        [SerializeField] private bool drawGridPreview = true;  
         [SerializeField] private Color walkableColor = new Color(0f, 1f, 0f, 0.3f);
         [SerializeField] private Color unwalkableColor = new Color(1f, 0f, 0f, 0.7f);
         [SerializeField] private Color gridBoundsColor = Color.cyan;
@@ -75,13 +76,13 @@ namespace ggj_2026_masks.Pathfinding
                 return;
             }
 
-            Vector3 worldBottomLeft = transform.position
-                                      - Vector3.right * gridWorldSize.x / 2f
-                                      - Vector3.forward * gridWorldSize.y / 2f;
+            var worldBottomLeft = transform.position
+                                  - Vector3.right * gridWorldSize.x / 2f
+                                  - Vector3.forward * gridWorldSize.y / 2f;
 
-            for (int x = 0; x < _gridSizeX; x++)
+            for (var x = 0; x < _gridSizeX; x++)
             {
-                for (int y = 0; y < _gridSizeY; y++)
+                for (var y = 0; y < _gridSizeY; y++)
                 {
                     var worldPoint = worldBottomLeft
                                      + Vector3.right * (x * _nodeDiameter + nodeRadius)
@@ -142,37 +143,62 @@ namespace ggj_2026_masks.Pathfinding
             var node = NodeFromWorldPoint(worldPosition);
             return node is { Walkable: true };
         }
-
+        
         private void OnDrawGizmos()
         {
             // Always draw grid bounds
             Gizmos.color = gridBoundsColor;
             Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 0.5f, gridWorldSize.y));
 
-            if (!drawGizmos || _grid == null)
-                return;
+            if (!drawGizmos) return;
 
-            foreach (Node node in _grid)
+            var diameter = nodeRadius * 2f;
+            var sizeX = Mathf.RoundToInt(gridWorldSize.x / diameter);
+            var sizeY = Mathf.RoundToInt(gridWorldSize.y / diameter);
+
+            var bottomLeft = transform.position 
+                             - Vector3.right * gridWorldSize.x / 2f 
+                             - Vector3.forward * gridWorldSize.y / 2f;
+
+            var layersToCheck = obstacleLayers.ToList();
+            var canCheckWalkable = layersToCheck.All(lm => !Physics.CheckSphere(bottomLeft, diameter, lm));
+
+            for (var x = 0; x < sizeX; x++)
             {
-                if (drawOnlyUnwalkable && node.Walkable)
-                    continue;
+                for (var y = 0; y < sizeY; y++)
+                {
+                    var pos = bottomLeft 
+                              + Vector3.right * (x * diameter + nodeRadius)
+                              + Vector3.forward * (y * diameter + nodeRadius);
 
-                if (node.Walkable)
-                {
-                    Gizmos.color = walkableColor;
-                    Gizmos.DrawWireCube(node.WorldPosition, Vector3.one * (_nodeDiameter - 0.1f));
-                }
-                else
-                {
-                    Gizmos.color = unwalkableColor;
-                    Gizmos.DrawCube(node.WorldPosition, Vector3.one * (_nodeDiameter - 0.05f));
-            
-                    // Draw X on unwalkable
-                    Gizmos.color = Color.white;
-                    var halfSize = (_nodeDiameter - 0.1f) * 0.4f;
-                    var pos = node.WorldPosition + Vector3.up * 0.01f;
-                    Gizmos.DrawLine(pos + new Vector3(-halfSize, 0, -halfSize), pos + new Vector3(halfSize, 0, halfSize));
-                    Gizmos.DrawLine(pos + new Vector3(-halfSize, 0, halfSize), pos + new Vector3(halfSize, 0, -halfSize));
+                    if (canCheckWalkable)
+                    {
+                        var walkable = layersToCheck.All(lm => !Physics.CheckSphere(pos, nodeRadius, lm));
+
+                        if (walkable)
+                        {
+                            if (drawOnlyUnwalkable) continue;
+                            Gizmos.color = walkableColor;
+                            Gizmos.DrawWireCube(pos, Vector3.one * (diameter - 0.1f));
+                        }
+                        else
+                        {
+                            Gizmos.color = unwalkableColor;
+                            Gizmos.DrawCube(pos, Vector3.one * (diameter - 0.05f));
+                    
+                            // Draw X on unwalkable
+                            Gizmos.color = Color.white;
+                            var halfSize = (diameter - 0.1f) * 0.4f;
+                            var xPos = pos + Vector3.up * 0.01f;
+                            Gizmos.DrawLine(xPos + new Vector3(-halfSize, 0, -halfSize), xPos + new Vector3(halfSize, 0, halfSize));
+                            Gizmos.DrawLine(xPos + new Vector3(-halfSize, 0, halfSize), xPos + new Vector3(halfSize, 0, -halfSize));
+                        }
+                    }
+                    else
+                    {
+                        Gizmos.color = new Color(1f, 1f, 1f, 0.15f);
+                        Gizmos.DrawWireCube(pos, Vector3.one * (diameter - 0.1f));
+                    }
                 }
             }
         }
