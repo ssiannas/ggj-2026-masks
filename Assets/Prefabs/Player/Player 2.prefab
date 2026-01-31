@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &443858912145594648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5743714051779951450}
+  m_Layer: 7
+  m_Name: Fire Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5743714051779951450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443858912145594648}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4280299583659584671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8305551374799651122
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +213,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 8467292190252479439, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3309275211793804415, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5743714051779951450}
     - targetCorrespondingSourceObject: {fileID: 4777960644000681818, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4729697522432084536}
@@ -213,10 +247,15 @@ MonoBehaviour:
   damage: 10
   attackTrigger: Attack
   maintainsDistance: 0
-  projectilePrefab: {fileID: 0}
-  firePoint: {fileID: 0}
+  projectilePrefab: {fileID: 7554215014450434732, guid: b0d2b34e1e2e8f440b424d95bb88488d, type: 3}
+  firePoint: {fileID: 5743714051779951450}
   projectileSpeed: 15
   fireDelay: 0.3
+--- !u!4 &4280299583659584671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3309275211793804415, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+  m_PrefabInstance: {fileID: 1624187094202155232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6108284529347432378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4777960644000681818, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
