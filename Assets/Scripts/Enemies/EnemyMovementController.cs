@@ -52,6 +52,13 @@ namespace ggj_2026_masks.Enemies
             );
         }
 
+        public void FaceTowards(Vector3 direction)
+        {
+            var directionNorm = direction.normalized;
+            directionNorm.y = 0f;
+            RotateTowards(directionNorm);
+        }
+
         public void Stop()
         {
             _isMoving = false;
