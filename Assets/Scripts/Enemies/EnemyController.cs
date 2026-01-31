@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ggj_2026_masks.Enemies.Attacking;
+using UnityEngine.Events;
 
 namespace ggj_2026_masks.Enemies
 {
@@ -23,13 +24,19 @@ namespace ggj_2026_masks.Enemies
         private EnemyPathfindingController _pathfinding;
 
         private IAttack _attack;
-
+        [SerializeField] private UnityEvent onDeath;
+        
         private Transform _target;
         private float _playerDetectionTimer = 0f;
         private bool _hasTarget;
         private Vector3 _lastKnownTargetPosition;
         private readonly List<GameObject> _players = new List<GameObject>();
-
+        
+        private readonly float MaxHP = 100f;
+        
+        private float Hp;
+        
+        
         public enum EnemyState
         {
             Idle,
@@ -48,6 +55,7 @@ namespace ggj_2026_masks.Enemies
             _movement = GetComponent<EnemyMovementController>();
             _pathfinding = GetComponent<EnemyPathfindingController>();
             _attack = GetComponent<IAttack>();
+            Hp = MaxHP;
         }
 
         private void Start()
@@ -280,6 +288,20 @@ namespace ggj_2026_masks.Enemies
             }
         }
 
+        public void TakeDamage(float damage)
+        {
+            Hp -= damage;
+            if (Hp <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            onDeath?.Invoke();
+            Destroy(gameObject);
+        }
 
         public void SetTarget(Transform newTarget)
         {

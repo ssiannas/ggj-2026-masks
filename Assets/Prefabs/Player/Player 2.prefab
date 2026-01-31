@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 414979660640924950}
   - component: {fileID: 2805176878408658605}
   - component: {fileID: 4509337363819748273}
+  - component: {fileID: 2791341483564297001}
   m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
@@ -114,6 +115,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &2791341483564297001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8305551374799651122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e52f066013c3d49bf0aa3265d49c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.PlayerCollisionContext
+  PlayerController: {fileID: 0}
 --- !u!1001 &1624187094202155232
 PrefabInstance:
   m_ObjectHideFlags: 0

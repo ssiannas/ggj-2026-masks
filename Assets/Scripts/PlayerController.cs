@@ -9,6 +9,7 @@ public class FloatEvent : UnityEvent<float>
 {
 }
 
+[RequireComponent(typeof(PlayerCollisionContext))]
 public class PlayerController : MonoBehaviour
 {
     // UI
