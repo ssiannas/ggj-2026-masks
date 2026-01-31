@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private PlayerAbilityController _abilityController;
     private MaskAbility _activeAbility;
     
+    private bool IsStunned { get ; set; }
+
+    private float stunTimer = 0f;
     // Interactions
     [SerializeField] private InteractionController _interactionController;
 
@@ -78,9 +81,29 @@ public class PlayerController : MonoBehaviour
         _attackingController = GetComponent<PlayerAttackingController>();
     }
 
+    public void Stun(float duration)
+    {
+        stunTimer = duration;
+        IsStunned = true;
+    }
+
+    private void CheckIfStunned()
+    {
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.deltaTime;
+        }
+        else
+        {
+            stunTimer = 0;
+            IsStunned = false;
+        }
+    }
+    
     // Update is called once per frame
     private void Update()
     {
+        CheckIfStunned();
         // Dead => no movement
         if (!isAlive)
         {
@@ -95,7 +118,10 @@ public class PlayerController : MonoBehaviour
         //if (isDashing)
             //rb.linearVelocity = dashSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
         //else
+        if (!IsStunned)
+        {
             rb.linearVelocity = moveSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
+        }
 
         // Rotate towards move direction
         if (moveDirection.sqrMagnitude > 0.01f)

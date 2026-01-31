@@ -77,10 +77,13 @@ namespace ggj_2026_masks.Enemies
 
         private void Update()
         {
-            UpdatePerception();
-            if (_pathfinding.ShouldUpdatePath())
+            if (CurrentState != EnemyState.Stunned)
             {
-                UpdatePath();
+                UpdatePerception();
+                if (_pathfinding.ShouldUpdatePath())
+                {
+                    UpdatePath();
+                }
             }
 
             ExecuteCurrentState();
@@ -97,6 +100,7 @@ namespace ggj_2026_masks.Enemies
 
         private void UpdatePerception()
         {
+            if (CurrentState == EnemyState.Stunned) return;
             _playerDetectionTimer += Time.deltaTime;
             if (_playerDetectionTimer < playerDetectionPeriodSec) return;
     
@@ -128,7 +132,7 @@ namespace ggj_2026_masks.Enemies
             }
         }
 
-        public void ApplyKnockback(Vector3 force, float stunDuration = 0.5f)
+        public void ApplyKnockback(Vector3 velocity, float stunDuration = 0.5f)
         {
             CurrentState = EnemyState.Stunned;
             _stunTimer = stunDuration;
@@ -137,7 +141,7 @@ namespace ggj_2026_masks.Enemies
     
             if (TryGetComponent<Rigidbody>(out var rb))
             {
-                rb.AddForce(force, ForceMode.VelocityChange);
+                rb.linearVelocity = velocity;
             }
         }
         

@@ -22,4 +22,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 128
   coolDownDuration: 4
