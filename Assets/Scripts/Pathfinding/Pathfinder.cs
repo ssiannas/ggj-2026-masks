@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ggj_2026_masks.Pathfinding 
 {
@@ -45,7 +46,15 @@ public class Pathfinder : MonoBehaviour
         if (startNode == null || targetNode == null)
             return null;
 
-        // If target is unwalkable, find nearest walkable node
+        // If start is unwalkable, find nearest walkable
+        if (!startNode.Walkable)
+        {
+            startNode = FindNearestWalkableNode(startNode);
+            if (startNode == null)
+                return null;
+        }
+
+        // If target is unwalkable, find nearest walkable
         if (!targetNode.Walkable)
         {
             targetNode = FindNearestWalkableNode(targetNode);
@@ -124,30 +133,35 @@ public class Pathfinder : MonoBehaviour
 
     private Node FindNearestWalkableNode(Node node)
     {
-        var searchRadius = 1;
-        var maxSearchRadius = 10;
+        if (node.Walkable) return node;
+    
+        // BFS outward to find nearest walkable
+        Queue<Node> queue = new Queue<Node>();
+        HashSet<Node> visited = new HashSet<Node>();
+    
+        queue.Enqueue(node);
+        visited.Add(node);
 
-        while (searchRadius <= maxSearchRadius)
+        while (queue.Count > 0)
         {
-            var neighbors = GetNodesInRadius(node, searchRadius);
-            Node nearest = null;
-            var nearestDist = float.MaxValue;
+            var current = queue.Dequeue();
 
-            foreach (var n in neighbors)
+            var list = _grid.GetNeighbors(current);
+            foreach (var neighbor in list.Where(neighbor => !visited.Contains(neighbor)))
             {
-                if (!n.Walkable) continue;
-                var dist = Vector3.Distance(node.WorldPosition, n.WorldPosition);
-                if (!(dist < nearestDist)) continue;
-                nearestDist = dist;
-                nearest = n;
+                visited.Add(neighbor);
+
+                if (neighbor.Walkable)
+                {
+                    return neighbor;
+                }
+
+                // Limit search radius
+                if (visited.Count > 100) return null;
+
+                queue.Enqueue(neighbor);
             }
-
-            if (nearest != null)
-                return nearest;
-
-            searchRadius++;
         }
-
         return null;
     }
 
@@ -171,10 +185,9 @@ public class Pathfinder : MonoBehaviour
 
     private Node GetNodeAtOffset(Node node, int offsetX, int offsetY)
     {
-        // This would require grid access - simplified for now
-        // In a full implementation, you'd want grid.GetNode(x, y) method
-        return null;
+        return _grid.GetNode(node.GridX + offsetX, node.GridY + offsetY);
     }
+
 
     private List<Vector3> RetracePath(Node startNode, Node endNode)
     {

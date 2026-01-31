@@ -108,6 +108,15 @@ namespace ggj_2026_masks.Pathfinding
             return _grid[x, y];
         }
 
+        public Node GetNode(int x, int y)
+        {
+            if (x >= 0 && x < _gridSizeX && y >= 0 && y < _gridSizeY)
+            {
+                return _grid[x, y];
+            }
+            return null;
+        }
+        
         public List<Node> GetNeighbors(Node node)
         {
             var neighbors = new List<Node>(8);
