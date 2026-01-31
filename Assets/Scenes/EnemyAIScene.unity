@@ -972,6 +972,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 1407806420993205185, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
+      propertyPath: faceCamera
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4400078075023961647, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
@@ -1150,7 +1154,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 7730071944874426640}
   - {fileID: 1395936225}
-  - {fileID: 457939549}
   - {fileID: 165377339}
+  - {fileID: 457939549}
   - {fileID: 4922250287839105413}
   - {fileID: 73387749}

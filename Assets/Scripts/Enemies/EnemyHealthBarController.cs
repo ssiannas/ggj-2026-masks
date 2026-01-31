@@ -27,18 +27,17 @@ namespace ggj_2026_masks.Enemies
 
             private void LateUpdate()
             {
-                if (_followTargets is null)
+                if (_followTargets is null || _ec is null || _ec.Hp <= 0) 
                 {
+                    Destroy(healthBar.gameObject);
                     Destroy(gameObject);
+                    return;
                 } 
                 if (_ec is not null)
                 {
                     healthBar.SetHealthPercentage(_ec.Hp / _ec.MaxHp);
                 }
-
                 transform.position = _followTargets.position + localOffset;
-
-
             }
     }
 }
