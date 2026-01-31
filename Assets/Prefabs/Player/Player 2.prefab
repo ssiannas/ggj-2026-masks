@@ -167,6 +167,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 643159392756547591, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+      propertyPath: <RopeOrigin>k__BackingField
+      value: 
+      objectReference: {fileID: 6752383731706903065}
     - target: {fileID: 823826142618561569, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       propertyPath: m_Name
       value: Player 2
@@ -281,5 +285,10 @@ Transform:
 --- !u!4 &6108284529347432378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4777960644000681818, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+  m_PrefabInstance: {fileID: 1624187094202155232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6752383731706903065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5422066447859170041, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
   m_PrefabInstance: {fileID: 1624187094202155232}
   m_PrefabAsset: {fileID: 0}

@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 11635103}
   - component: {fileID: 11635102}
   - component: {fileID: 11635101}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1014,7 +1014,7 @@ GameObject:
   - component: {fileID: 1161902160}
   - component: {fileID: 1161902159}
   - component: {fileID: 1161902158}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1170,6 +1170,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7902536490959976334, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
+      propertyPath: 'abilities.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ebf812fa3a5bc64eb89e4e6fb32942c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1305,7 +1309,7 @@ GameObject:
   - component: {fileID: 1523155454}
   - component: {fileID: 1523155453}
   - component: {fileID: 1523155452}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1469,6 +1473,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.805
       objectReference: {fileID: 0}
+    - target: {fileID: 7902536490959976334, guid: 1c78dfd9911b0d54a9cba9f01a36907c, type: 3}
+      propertyPath: 'abilities.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ebf812fa3a5bc64eb89e4e6fb32942c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
