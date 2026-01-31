@@ -96,6 +96,13 @@ public class PlayerController : MonoBehaviour
             //rb.linearVelocity = dashSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
         //else
             rb.linearVelocity = moveSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
+
+        // Rotate towards move direction
+        if (moveDirection.sqrMagnitude > 0.01f)
+        {
+            var targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.y));
+            transform.rotation = targetRotation;
+        }
     }
 
     private void OnMove(InputValue value)
