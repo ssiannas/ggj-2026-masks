@@ -226,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 17182506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6.05}
+  m_LocalPosition: {x: 0.07, y: 0, z: -4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,8 +250,11 @@ MonoBehaviour:
   pathUpdateInterval: 0.5
   targetLostTimeout: 3
   playerTag: Player
-  detectionRange: 20
-  alwaysChase: 1
+  detectionRange: 5
+  opaqueObstacles:
+    serializedVersion: 2
+    m_Bits: 8
+  alwaysChase: 0
   drawPath: 1
   pathColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &330585543
@@ -598,8 +601,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Pathfinding.PathfindingGrid
   gridWorldSize: {x: 50, y: 50}
   nodeRadius: 0.5
-  obstacleLayer:
-    serializedVersion: 2
+  obstacleLayers:
+  - serializedVersion: 2
+    m_Bits: 8
+  - serializedVersion: 2
     m_Bits: 64
   drawGizmos: 1
   drawOnlyUnwalkable: 1
@@ -745,7 +750,7 @@ GameObject:
   - component: {fileID: 1395936224}
   - component: {fileID: 1395936223}
   - component: {fileID: 1395936222}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,7 +844,7 @@ Transform:
   m_GameObject: {fileID: 1395936221}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0.5, z: -8.12}
+  m_LocalPosition: {x: 0.05, y: 0.5, z: -7.25}
   m_LocalScale: {x: 3.7456, y: 1, z: 0.5507}
   m_ConstrainProportionsScale: 0
   m_Children: []

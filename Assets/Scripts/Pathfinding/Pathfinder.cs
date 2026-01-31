@@ -36,11 +36,11 @@ public class Pathfinder : MonoBehaviour
 
     public List<Vector3> FindPath(Vector3 startPos, Vector3 targetPos)
     {
-        if (_grid == null)
+        if (!_grid)
             return null;
 
-        Node startNode = _grid.NodeFromWorldPoint(startPos);
-        Node targetNode = _grid.NodeFromWorldPoint(targetPos);
+        var startNode = _grid.NodeFromWorldPoint(startPos);
+        var targetNode = _grid.NodeFromWorldPoint(targetPos);
 
         if (startNode == null || targetNode == null)
             return null;
@@ -53,18 +53,18 @@ public class Pathfinder : MonoBehaviour
                 return null;
         }
 
-        List<Node> openSet = new List<Node>();
-        HashSet<Node> closedSet = new HashSet<Node>();
+        var openSet = new List<Node>();
+        var closedSet = new HashSet<Node>();
         openSet.Add(startNode);
 
-        int iterations = 0;
+        var iterations = 0;
 
         while (openSet.Count > 0 && iterations < maxIterations)
         {
             iterations++;
             
             // Find node with lowest fCost
-            Node currentNode = openSet[0];
+            var currentNode = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].FCost < currentNode.FCost || 
@@ -84,45 +84,39 @@ public class Pathfinder : MonoBehaviour
             }
 
             // Check neighbors
-            foreach (Node neighbor in _grid.GetNeighbors(currentNode))
+            foreach (var neighbor in _grid.GetNeighbors(currentNode))
             {
                 if (!neighbor.Walkable || closedSet.Contains(neighbor))
                     continue;
 
-                int newMovementCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor);
-                
-                if (newMovementCostToNeighbor < neighbor.GCost || !openSet.Contains(neighbor))
-                {
-                    neighbor.GCost = newMovementCostToNeighbor;
-                    neighbor.HCost = GetDistance(neighbor, targetNode);
-                    neighbor.Parent = currentNode;
+                var newMovementCostToNeighbor = currentNode.GCost + GetDistance(currentNode, neighbor);
 
-                    if (!openSet.Contains(neighbor))
-                        openSet.Add(neighbor);
-                }
+                if (newMovementCostToNeighbor >= neighbor.GCost && openSet.Contains(neighbor)) continue;
+                neighbor.GCost = newMovementCostToNeighbor;
+                neighbor.HCost = GetDistance(neighbor, targetNode);
+                neighbor.Parent = currentNode;
+
+                if (!openSet.Contains(neighbor))
+                    openSet.Add(neighbor);
             }
         }
 
         // No path found - return partial path to closest node
-        if (closedSet.Count > 0)
-        {
-            Node closestNode = null;
-            int closestDistance = int.MaxValue;
+        if (closedSet.Count <= 0) return null;
+        Node closestNode = null;
+        var closestDistance = int.MaxValue;
             
-            foreach (Node node in closedSet)
-            {
-                int distance = GetDistance(node, targetNode);
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestNode = node;
-                }
-            }
+        foreach (var node in closedSet)
+        {
+            var distance = GetDistance(node, targetNode);
+            if (distance >= closestDistance) continue;
+            closestDistance = distance;
+            closestNode = node;
+        }
 
-            if (closestNode != null && closestNode != startNode)
-            {
-                return RetracePath(startNode, closestNode);
-            }
+        if (closestNode != null && closestNode != startNode)
+        {
+            return RetracePath(startNode, closestNode);
         }
 
         return null;
@@ -130,26 +124,22 @@ public class Pathfinder : MonoBehaviour
 
     private Node FindNearestWalkableNode(Node node)
     {
-        int searchRadius = 1;
-        int maxSearchRadius = 10;
+        var searchRadius = 1;
+        var maxSearchRadius = 10;
 
         while (searchRadius <= maxSearchRadius)
         {
-            List<Node> neighbors = GetNodesInRadius(node, searchRadius);
+            var neighbors = GetNodesInRadius(node, searchRadius);
             Node nearest = null;
-            float nearestDist = float.MaxValue;
+            var nearestDist = float.MaxValue;
 
-            foreach (Node n in neighbors)
+            foreach (var n in neighbors)
             {
-                if (n.Walkable)
-                {
-                    float dist = Vector3.Distance(node.WorldPosition, n.WorldPosition);
-                    if (dist < nearestDist)
-                    {
-                        nearestDist = dist;
-                        nearest = n;
-                    }
-                }
+                if (!n.Walkable) continue;
+                var dist = Vector3.Distance(node.WorldPosition, n.WorldPosition);
+                if (!(dist < nearestDist)) continue;
+                nearestDist = dist;
+                nearest = n;
             }
 
             if (nearest != null)
@@ -163,18 +153,16 @@ public class Pathfinder : MonoBehaviour
 
     private List<Node> GetNodesInRadius(Node centerNode, int radius)
     {
-        List<Node> nodes = new List<Node>();
+        var nodes = new List<Node>();
         
-        for (int x = -radius; x <= radius; x++)
+        for (var x = -radius; x <= radius; x++)
         {
-            for (int y = -radius; y <= radius; y++)
+            for (var y = -radius; y <= radius; y++)
             {
-                if (Mathf.Abs(x) == radius || Mathf.Abs(y) == radius)
-                {
-                    Node neighbor = GetNodeAtOffset(centerNode, x, y);
-                    if (neighbor != null)
-                        nodes.Add(neighbor);
-                }
+                if (Mathf.Abs(x) != radius && Mathf.Abs(y) != radius) continue;
+                var neighbor = GetNodeAtOffset(centerNode, x, y);
+                if (neighbor != null)
+                    nodes.Add(neighbor);
             }
         }
 
@@ -190,8 +178,8 @@ public class Pathfinder : MonoBehaviour
 
     private List<Vector3> RetracePath(Node startNode, Node endNode)
     {
-        List<Vector3> path = new List<Vector3>();
-        Node currentNode = endNode;
+        var path = new List<Vector3>();
+        var currentNode = endNode;
 
         while (currentNode != startNode)
         {
@@ -208,12 +196,12 @@ public class Pathfinder : MonoBehaviour
         if (path.Count < 2)
             return path;
 
-        List<Vector3> simplifiedPath = new List<Vector3>();
-        Vector3 directionOld = Vector3.zero;
+        var simplifiedPath = new List<Vector3>();
+        var directionOld = Vector3.zero;
 
-        for (int i = 1; i < path.Count; i++)
+        for (var i = 1; i < path.Count; i++)
         {
-            Vector3 directionNew = (path[i] - path[i - 1]).normalized;
+            var directionNew = (path[i] - path[i - 1]).normalized;
             
             if (directionNew != directionOld)
             {
