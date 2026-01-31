@@ -22,7 +22,6 @@ public class Pathfinder : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
 
