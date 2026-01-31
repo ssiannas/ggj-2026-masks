@@ -83,7 +83,7 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: 2.28, y: 2.01, z: 0}
-  - {x: 0, y: 3.44, z: 1}
+  - {x: 0, y: 3.44, z: 2.54}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -92,7 +92,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.17254257
         inSlope: 0
         outSlope: 0
         tangentMode: 0

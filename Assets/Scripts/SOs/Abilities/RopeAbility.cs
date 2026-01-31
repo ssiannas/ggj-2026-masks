@@ -160,7 +160,8 @@ namespace ggj_2026_masks
 
                             if (lineRenderer != null)
                             {
-                                lineRenderer.SetPosition(0, context.Transform.position);
+                                yield return newTargetPos.y = context.RopeOrigin.position.y;
+                                lineRenderer.SetPosition(0, context.RopeOrigin.position);
                                 lineRenderer.SetPosition(1, newTargetPos);
                             }
 

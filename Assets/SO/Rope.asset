@@ -15,9 +15,9 @@ MonoBehaviour:
   activeSprite: {fileID: 0}
   inactiveSprite: {fileID: 0}
   coolDownS: 1.5
-  throwDurationSec: 0.06
-  throwRange: 10
-  pullDurationSec: 0.02
+  throwDurationSec: 0.25
+  throwRange: 7
+  pullDurationSec: 0.2
   obstacleLayers:
     serializedVersion: 2
     m_Bits: 8
