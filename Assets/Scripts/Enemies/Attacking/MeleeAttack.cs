@@ -51,8 +51,6 @@ namespace ggj_2026_masks.Enemies.Attacking
                 var hitCollider = hitColliders[i];
                 
                 // deal damage based on collider
-                Debug.Log($"Dealing damage to: {hitCollider.gameObject.name}");
-                
                 // Apply damage to player
                 var go = hitCollider.gameObject;
                 if (go.TryGetComponent<PlayerCollisionContext>(out var playerCollisionContext))

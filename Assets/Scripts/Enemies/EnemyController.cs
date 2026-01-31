@@ -291,7 +291,6 @@ namespace ggj_2026_masks.Enemies
 
         public void TakeDamage(float damage)
         {
-            Debug.Log("Took Damage");
             Hp -= damage;
             if (Hp <= 0)
             {
