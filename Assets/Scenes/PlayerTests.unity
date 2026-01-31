@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27661750554db9e408988f774664fa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.DoorController
-  onOpenChanged:
+  onOpen:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &191811340
