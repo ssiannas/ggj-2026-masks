@@ -40,6 +40,9 @@ public class PlayerController : MonoBehaviour
     // Interactions
     [SerializeField] private InteractionController _interactionController;
 
+    // Attacking controller
+    private PlayerAttackingController _attackingController;
+
     public bool isAlive => Health > 0;
 
     public float Health
@@ -63,6 +66,7 @@ public class PlayerController : MonoBehaviour
         OnDashTriggered.AddListener(HandleDash);
         if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
         _interactionController = GetComponent<InteractionController>();
+        _attackingController = GetComponent<PlayerAttackingController>();
     }
 
     // Update is called once per frame
@@ -126,7 +130,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-       // Debug.Log("Attacking!");
+        Debug.Log($"Handling attack: {gameObject.name}");
+        _attackingController?.Attack();
     }
 
     private void HandlePlayerDeath()

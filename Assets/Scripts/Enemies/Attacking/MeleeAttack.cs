@@ -49,7 +49,8 @@ namespace ggj_2026_masks.Enemies.Attacking
             for (int i = 0; i < size; i++)
             {
                 var hitCollider = hitColliders[i];
-                // deal damage based on collider 
+                // deal damage based on collider
+                Debug.Log($"Dealing damage to: {hitCollider.gameObject.name}");
             }
         }
 
