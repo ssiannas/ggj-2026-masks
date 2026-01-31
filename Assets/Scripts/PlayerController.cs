@@ -1,4 +1,5 @@
 using System;
+using ggj_2026_masks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -10,6 +11,9 @@ public class FloatEvent : UnityEvent<float>
 
 public class PlayerController : MonoBehaviour
 {
+    // UI
+    [SerializeField] private PlayerUIController _playerUIController;
+
     // Move
     [SerializeField] private float moveSpeed = 5.0f;
 
@@ -54,6 +58,7 @@ public class PlayerController : MonoBehaviour
         _health = maxHealth;
         OnPlayerDeath.AddListener(HandlePlayerDeath);
         OnDashTriggered.AddListener(HandleDash);
+        OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
     }
 
     // Update is called once per frame
@@ -99,10 +104,10 @@ public class PlayerController : MonoBehaviour
         if (shouldDash) OnDashTriggered.Invoke();
     }
 
-    private void OnCrouch(InputValue value)
+    private void OnTestDamage(InputValue value)
     {
-        var crouchButton = value.Get<float>();
-        if (crouchButton > 0.5f) ApplyDamage(0.2f * maxHealth);
+        var testDamageButton = value.Get<float>();
+        if (testDamageButton > 0.5f) ApplyDamage(0.2f * maxHealth);
     }
 
     private void HandleAttack()
