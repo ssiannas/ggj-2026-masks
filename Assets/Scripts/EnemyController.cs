@@ -47,6 +47,10 @@ namespace ggj_2026_masks
 
         public EnemyState CurrentState { get; private set; } = EnemyState.Idle;
 
+        private void Awake()
+        {
+            opaqueObstacles = LayerMask.GetMask($"Obstacles");
+        }
         private void Start()
         {
             _pathfinder = Pathfinder.Instance;
