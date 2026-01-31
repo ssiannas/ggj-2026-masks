@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ggj_2026_masks
 {
+    [ExecuteAlways]
     public class CameraController : MonoBehaviour
     {
         // Start is called once before the first execution of Update after the MonoBehaviour is created
