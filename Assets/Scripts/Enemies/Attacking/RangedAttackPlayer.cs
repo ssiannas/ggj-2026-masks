@@ -57,7 +57,9 @@ namespace ggj_2026_masks.Enemies.Attacking
 
             if (!projectilePrefab) return;
 
-            var direction = (firePoint.position - transform.position).normalized;
+            var direction = (firePoint.position - transform.position);
+            direction.y = 0;
+            direction = direction.normalized;
             var projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(direction));
 
             if (projectile.TryGetComponent<Rigidbody>(out var rb))
