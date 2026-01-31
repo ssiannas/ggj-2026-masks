@@ -10,10 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obastacles
   - Water
   - UI
-  - Terrain
+  - NonPathableTerrain
   - 
   - 
   - 

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9390417b654337449a6373d155493b8c, type: 3}
   m_Name: Basic Ass Attack
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Attack
+  <Damage>k__BackingField: 0
