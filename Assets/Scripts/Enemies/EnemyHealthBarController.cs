@@ -8,27 +8,37 @@ namespace ggj_2026_masks.Enemies
 
             [SerializeField] private HealthBarController healthBar;
             [SerializeField] private bool faceCamera = true;
+            [SerializeField] private Vector3 localOffset = new Vector3(0, 2f, 0);
 
+            
             private Camera _camera;
             private EnemyController _ec;
+            private Transform _followTargets;
 
             private void Awake()
             {
                 _ec = GetComponentInParent<EnemyController>();
                 _camera = Camera.main;
+                _followTargets = transform.parent;
+                transform.SetParent(null);
+                if (_camera == null) return;
+                transform.rotation = _camera.transform.rotation; 
             }
 
             private void LateUpdate()
             {
+                if (_followTargets is null)
+                {
+                    Destroy(gameObject);
+                } 
                 if (_ec is not null)
                 {
                     healthBar.SetHealthPercentage(_ec.Hp / _ec.MaxHp);
                 }
 
-                if (faceCamera && _camera is not null)
-                {
-                    transform.forward = _camera.transform.forward;
-                }
+                transform.position = _followTargets.position + localOffset;
+
+
             }
     }
 }
