@@ -12,6 +12,7 @@ namespace ggj_2026_masks.Enemies
         [SerializeField] private float detectionRange = 5f;
         [SerializeField] private LayerMask opaqueObstacles;
         [SerializeField] private bool alwaysChase = false;
+        [SerializeField] private float playerDetectionPeriodSec = 0.5f;
         [SerializeField] private string[] playerTags = {"Player 1", "Player 2"};
 
         [Header("Debug")]
@@ -21,6 +22,7 @@ namespace ggj_2026_masks.Enemies
         private EnemyPathfindingController _pathfinding;
 
         private Transform _target;
+        private float _playerDetectionTimer = 0f;
         private bool _hasTarget;
         private Vector3 _lastKnownTargetPosition;
         private readonly List<GameObject> _players = new List<GameObject>();
@@ -81,21 +83,20 @@ namespace ggj_2026_masks.Enemies
 
         private void UpdatePerception()
         {
-            if (_target == null)
-            {
-                TryAcquireTarget();
-                return;
-            }
+            _playerDetectionTimer += Time.deltaTime;
+            if (_playerDetectionTimer < playerDetectionPeriodSec) return;
+    
+            _playerDetectionTimer = 0f;
+    
+            var previousTarget = _target;
+            TryAcquireTarget();
 
-            bool canSeeTarget = HasLineOfSight(_target.position);
-            bool inRange = alwaysChase || Vector3.Distance(transform.position, _target.position) <= detectionRange;
-
-            if (canSeeTarget && inRange)
+            if (_target)
             {
                 _lastKnownTargetPosition = _target.position;
                 _hasTarget = true;
 
-                if (CurrentState == EnemyState.SearchingLastKnown || CurrentState == EnemyState.Idle)
+                if (CurrentState != EnemyState.Chasing)
                 {
                     CurrentState = EnemyState.Chasing;
                     _pathfinding.ForcePathUpdate();
@@ -103,12 +104,13 @@ namespace ggj_2026_masks.Enemies
             }
             else
             {
-                if (CurrentState == EnemyState.Chasing)
+                _hasTarget = false;
+
+                if (previousTarget && CurrentState == EnemyState.Chasing)
                 {
                     CurrentState = EnemyState.SearchingLastKnown;
                     _pathfinding.ForcePathUpdate();
                 }
-                _hasTarget = false;
             }
         }
         
@@ -156,7 +158,7 @@ namespace ggj_2026_masks.Enemies
 
         private void UpdatePath()
         {
-            if (_hasTarget && _target != null)
+            if (_hasTarget && _target)
             {
                 _pathfinding.RequestPath(transform.position, _lastKnownTargetPosition);
                 return;
