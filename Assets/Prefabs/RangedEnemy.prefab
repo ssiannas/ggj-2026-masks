@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Enemies.EnemyHealthBarController
   healthBar: {fileID: 3978532569183638396}
   faceCamera: 1
+  localOffset: {x: -0.1, y: 2, z: 0.75}
 --- !u!1 &8533620690257067829
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,7 +260,19 @@ MonoBehaviour:
   drawDetection: 0
   onDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3405974888157081934}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3174407803415986002
 MonoBehaviour:
   m_ObjectHideFlags: 0

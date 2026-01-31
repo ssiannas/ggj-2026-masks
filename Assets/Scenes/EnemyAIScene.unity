@@ -319,8 +319,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 0
+  field of view: 0.00001
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalPosition: {x: 0, y: 10, z: -5.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -972,6 +972,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 1407806420993205185, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
+      propertyPath: faceCamera
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4400078075023961647, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
@@ -1150,7 +1154,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 7730071944874426640}
   - {fileID: 1395936225}
-  - {fileID: 457939549}
   - {fileID: 165377339}
+  - {fileID: 457939549}
   - {fileID: 4922250287839105413}
   - {fileID: 73387749}
