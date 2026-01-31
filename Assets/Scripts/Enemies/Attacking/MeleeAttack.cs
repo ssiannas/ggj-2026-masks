@@ -46,11 +46,25 @@ namespace ggj_2026_masks.Enemies.Attacking
             var hitboxCenter = transform.position + transform.TransformDirection(hitboxOffset);
             var size = Physics.OverlapSphereNonAlloc(hitboxCenter, hitboxRadius, hitColliders, targetLayers);
 
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
                 var hitCollider = hitColliders[i];
+                
                 // deal damage based on collider
                 Debug.Log($"Dealing damage to: {hitCollider.gameObject.name}");
+                
+                // Apply damage to player
+                var go = hitCollider.gameObject;
+                if (go.TryGetComponent<PlayerCollisionContext>(out var playerCollisionContext))
+                {
+                    playerCollisionContext.PlayerController.ApplyDamage(damage);
+                }
+                
+                // Apply damage to enemy
+                if (go.TryGetComponent<EnemyController>(out var enemyController))
+                {
+                    enemyController.TakeDamage(damage);
+                }
             }
         }
 

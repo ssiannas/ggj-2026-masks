@@ -18,10 +18,15 @@ namespace ggj_2026_masks.Enemies.Attacking
 
         private void OnTriggerEnter(Collider other)
         {
-            // Damage player
             if ((targetLayers & (1 << other.gameObject.layer)) == 0)
             {
+                // Not player
                 return;
+            }
+            // PLAYERS 
+            if (other.gameObject.TryGetComponent<PlayerCollisionContext>(out var pctx))
+            {
+               pctx.PlayerController.ApplyDamage(_damage); 
             }
             Destroy(gameObject);
         }
