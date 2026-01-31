@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8478977898787748089}
   - component: {fileID: 4325663964383839648}
   - component: {fileID: 2324013167372967720}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5a17253c8803c40877312466d3574d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _playerUIController: {fileID: 0}
   moveSpeed: 5
   OnAttackTriggered:
     m_PersistentCalls:
@@ -130,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4777960644000681818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +166,7 @@ GameObject:
   - component: {fileID: 6190302837162827928}
   - component: {fileID: 5959128171139136285}
   - component: {fileID: 2614110420052943267}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

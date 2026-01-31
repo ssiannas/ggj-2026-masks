@@ -20,7 +20,9 @@ namespace ggj_2026_masks.Enemies.Attacking
         {
             // Damage player
             if ((targetLayers & (1 << other.gameObject.layer)) == 0)
+            {
                 return;
+            }
             Destroy(gameObject);
         }
     }
