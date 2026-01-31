@@ -9,6 +9,7 @@ public class FloatEvent : UnityEvent<float>
 {
 }
 
+[RequireComponent(typeof(AbilityContext), typeof(PlayerAbilityController))]
 public class PlayerController : MonoBehaviour
 {
     // UI
@@ -36,6 +37,11 @@ public class PlayerController : MonoBehaviour
     private float dashStartTime;
     private Vector2 moveDirection;
     private Rigidbody rb;
+    private AbilityContext _abilityContext;
+    
+    // Abilities
+    private PlayerAbilityController _abilityController;
+    private MaskAbility _activeAbility;
     
     // Interactions
     [SerializeField] private InteractionController _interactionController;
@@ -60,8 +66,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        _abilityContext = GetComponent<AbilityContext>();
+        _abilityController = GetComponent<PlayerAbilityController>();
         OnAttackTriggered.AddListener(HandleAttack);
         _health = maxHealth;
+        _activeAbility = _abilityController.GetFirst();
         OnPlayerDeath.AddListener(HandlePlayerDeath);
         OnDashTriggered.AddListener(HandleDash);
         if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
@@ -80,12 +89,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check if dash duration has expired
-        if (isDashing && (Time.time - dashStartTime) * 1000 >= dashDurationMs) isDashing = false;
+        //if (isDashing && (Time.time - dashStartTime) * 1000 >= dashDurationMs) isDashing = false;
 
         // Apply movement
-        if (isDashing)
-            rb.linearVelocity = dashSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
-        else
+        //if (isDashing)
+            //rb.linearVelocity = dashSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
+        //else
             rb.linearVelocity = moveSpeed * new Vector3(moveDirection.x, 0, moveDirection.y);
     }
 
@@ -106,10 +115,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnDash(InputValue value)
     {
-        var dashButton = value.Get<float>();
+        // Temporarily used for ability
+         var dashButton = value.Get<float>();
         var shouldDash = dashButton > 0.5f;
+        //
+        //if (shouldDash) OnDashTriggered.Invoke();
+        _abilityController.TryExecute(_activeAbility, _abilityContext);
+    }
 
-        if (shouldDash) OnDashTriggered.Invoke();
+    private void SwapAbilities()
+    {
+        _activeAbility = _abilityController.GetNext();
     }
 
     private void OnTestDamage(InputValue value)
@@ -130,7 +146,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-        Debug.Log($"Handling attack: {gameObject.name}");
         _attackingController?.Attack();
     }
 
