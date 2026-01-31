@@ -16,7 +16,6 @@ namespace ggj_2026_masks.Pathfinding
         [Header("Debug")] 
         [SerializeField] private bool drawGizmos = true;
         [SerializeField] private bool drawOnlyUnwalkable = false;
-        [SerializeField] private bool drawGridPreview = true;  
         [SerializeField] private Color walkableColor = new Color(0f, 1f, 0f, 0.3f);
         [SerializeField] private Color unwalkableColor = new Color(1f, 0f, 0f, 0.7f);
         [SerializeField] private Color gridBoundsColor = Color.cyan;
