@@ -968,6 +968,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 744764341280046498, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 4400078075023961647, guid: 93ac59593b81d924fa26a1e6ef0b4ec0, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
@@ -1025,6 +1029,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 985616245952480954, guid: f7e3130dee3992e43892b2d1e7892ff9, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 6661326817850769261, guid: f7e3130dee3992e43892b2d1e7892ff9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.49

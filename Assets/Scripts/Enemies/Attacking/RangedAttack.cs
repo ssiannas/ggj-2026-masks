@@ -1,8 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-using UnityEngine;
-
 namespace ggj_2026_masks.Enemies.Attacking
 {
     public class RangedAttack : BaseAttack

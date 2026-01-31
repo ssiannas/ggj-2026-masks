@@ -31,12 +31,13 @@ namespace ggj_2026_masks.Enemies
         private bool _hasTarget;
         private Vector3 _lastKnownTargetPosition;
         private readonly List<GameObject> _players = new List<GameObject>();
-        
-        private readonly float MaxHP = 100f;
-        
-        private float Hp;
-        
-        
+
+        public float MaxHp { get; } = 100f;
+
+
+        public float Hp { get; private set; }
+
+
         public enum EnemyState
         {
             Idle,
@@ -55,7 +56,7 @@ namespace ggj_2026_masks.Enemies
             _movement = GetComponent<EnemyMovementController>();
             _pathfinding = GetComponent<EnemyPathfindingController>();
             _attack = GetComponent<IAttack>();
-            Hp = MaxHP;
+            Hp = MaxHp;
         }
 
         private void Start()
