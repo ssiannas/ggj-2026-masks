@@ -31,7 +31,7 @@ namespace ggj_2026_masks.Enemies
         private bool _hasTarget;
         private Vector3 _lastKnownTargetPosition;
         private readonly List<GameObject> _players = new List<GameObject>();
-
+        private float _stunTimer;
         public float MaxHp { get; } = 100f;
 
 
@@ -44,6 +44,7 @@ namespace ggj_2026_masks.Enemies
             Chasing,
             SearchingLastKnown,
             Attacking,
+            Stunned,
         }
 
         public EnemyState CurrentState { get; private set; } = EnemyState.Idle;
@@ -76,15 +77,18 @@ namespace ggj_2026_masks.Enemies
 
         private void Update()
         {
-            UpdatePerception();
-            if (_pathfinding.ShouldUpdatePath())
+            if (CurrentState != EnemyState.Stunned)
             {
-                UpdatePath();
+                UpdatePerception();
+                if (_pathfinding.ShouldUpdatePath())
+                {
+                    UpdatePath();
+                }
             }
 
             ExecuteCurrentState();
         }
-
+        
 
         private bool HasLineOfSight(Vector3 targetPosition)
         {
@@ -96,6 +100,7 @@ namespace ggj_2026_masks.Enemies
 
         private void UpdatePerception()
         {
+            if (CurrentState == EnemyState.Stunned) return;
             _playerDetectionTimer += Time.deltaTime;
             if (_playerDetectionTimer < playerDetectionPeriodSec) return;
     
@@ -124,6 +129,19 @@ namespace ggj_2026_masks.Enemies
                     CurrentState = EnemyState.SearchingLastKnown;
                     _pathfinding.ForcePathUpdate();
                 }
+            }
+        }
+
+        public void ApplyKnockback(Vector3 velocity, float stunDuration = 0.5f)
+        {
+            CurrentState = EnemyState.Stunned;
+            _stunTimer = stunDuration;
+            _pathfinding.ClearPath();
+            _movement.Stop();
+    
+            if (TryGetComponent<Rigidbody>(out var rb))
+            {
+                rb.linearVelocity = velocity;
             }
         }
         
@@ -261,7 +279,14 @@ namespace ggj_2026_masks.Enemies
                         }
                     }
                     break;
-
+                case EnemyState.Stunned:
+                    _stunTimer -= Time.deltaTime;
+                    if (_stunTimer <= 0f)
+                    {
+                        CurrentState = _hasTarget ? EnemyState.Chasing : EnemyState.Idle;
+                        _pathfinding.ForcePathUpdate();
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
