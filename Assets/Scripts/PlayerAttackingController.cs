@@ -26,18 +26,15 @@ namespace ggj_2026_masks
         {
             if (_attack == null)
             {
-                Debug.LogWarning("PlayerAttackingController: No IAttack component found");
                 return;
             }
 
             if (!_attack.CanAttack)
             {
-                Debug.Log($"PlayerAttackingController: Cannot attack - IsAttacking: {_attack.IsAttacking}");
                 return;
             }
 
             TryAcquireTarget();
-            Debug.Log($"PlayerAttackingController: Starting attack on target: {_target?.name ?? "null"}");
             _attack.StartAttack(_target);
         }
 
@@ -64,7 +61,6 @@ namespace ggj_2026_masks
             }
 
             _target = closestEnemy;
-            Debug.Log($"Targetting: {_target?.gameObject.name}");
         }
 
         private void OnDrawGizmosSelected()

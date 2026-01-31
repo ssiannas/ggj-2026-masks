@@ -12,7 +12,6 @@ namespace ggj_2026_masks.Enemies.Attacking
         public void Initialize(int damage)
         {
             _damage = damage;
-            targetLayers = LayerMask.GetMask("Player");
             Destroy(gameObject, lifetime);
         }
 
@@ -20,13 +19,17 @@ namespace ggj_2026_masks.Enemies.Attacking
         {
             if ((targetLayers & (1 << other.gameObject.layer)) == 0)
             {
-                // Not player
+                // Not target, do not apply damage
                 return;
             }
-            // PLAYERS 
+            // Target layer hit 
             if (other.gameObject.TryGetComponent<PlayerCollisionContext>(out var pctx))
-            {
+            { 
                pctx.PlayerController.ApplyDamage(_damage); 
+            }
+            else if (other.gameObject.TryGetComponent<EnemyController>(out var ec))
+            {
+                ec.TakeDamage(_damage);
             }
             Destroy(gameObject);
         }
