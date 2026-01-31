@@ -58,7 +58,10 @@ public class PlayerController : MonoBehaviour
         _health = maxHealth;
         OnPlayerDeath.AddListener(HandlePlayerDeath);
         OnDashTriggered.AddListener(HandleDash);
-        OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
+        if (_playerUIController is not null)
+        {
+            OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
+        }
     }
 
     // Update is called once per frame
