@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 17182511}
   - component: {fileID: 17182513}
   - component: {fileID: 17182512}
+  - component: {fileID: 17182514}
   m_Layer: 0
   m_Name: EnemyCube
   m_TagString: Untagged
@@ -255,7 +256,7 @@ MonoBehaviour:
   playerTags:
   - Player 1
   - Player 2
-  drawDetection: 1
+  drawDetection: 0
 --- !u!114 &17182512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.EnemyPathfindingController
   waypointReachedThreshold: 0.3
   pathUpdateInterval: 0.5
-  drawPath: 1
+  drawPath: 0
   pathColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &17182513
 MonoBehaviour:
@@ -286,6 +287,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.EnemyMovementController
   moveSpeed: 5
   rotationSpeed: 10
+--- !u!114 &17182514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17182506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26f41c1b8d158f40847d84b305758ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.Enemies.Attacking.RangedAttack
+  attackRange: 4.5
+  attackCooldown: 1
+  attackDuration: 0.5
+  damage: 10
+  attackTrigger: Attack
+  projectilePrefab: {fileID: 7554215014450434732, guid: ec6059bb15838c249b57bab1f078eecf, type: 3}
+  firePoint: {fileID: 0}
+  projectileSpeed: 15
+  fireDelay: 0.3
 --- !u!1001 &165377339
 PrefabInstance:
   m_ObjectHideFlags: 0

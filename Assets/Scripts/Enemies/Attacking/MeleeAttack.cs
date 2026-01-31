@@ -11,7 +11,9 @@ namespace ggj_2026_masks.Enemies.Attacking
         [SerializeField] private LayerMask targetLayers;
 
         [Header("Timing")] [SerializeField] private float damageDelay = 0.2f;
-
+        
+        private Collider[] hitColliders = new Collider[10];
+        
         private bool _hasDamagedThisAttack;
         private float _damageTimer;
 
@@ -19,13 +21,11 @@ namespace ggj_2026_masks.Enemies.Attacking
         {
             base.Update();
 
-            if (_isAttacking && !_hasDamagedThisAttack)
+            if (!_isAttacking || _hasDamagedThisAttack) return;
+            _damageTimer -= Time.deltaTime;
+            if (_damageTimer <= 0f)
             {
-                _damageTimer -= Time.deltaTime;
-                if (_damageTimer <= 0f)
-                {
-                    DealDamage();
-                }
+                DealDamage();
             }
         }
 
@@ -44,11 +44,12 @@ namespace ggj_2026_masks.Enemies.Attacking
             _hasDamagedThisAttack = true;
 
             var hitboxCenter = transform.position + transform.TransformDirection(hitboxOffset);
-            var hits = Physics.OverlapSphere(hitboxCenter, hitboxRadius, targetLayers);
+            var size = Physics.OverlapSphereNonAlloc(hitboxCenter, hitboxRadius, hitColliders, targetLayers);
 
-            foreach (var hit in hits)
+            for (int i = 0; i < size; i++)
             {
-                // Take damage
+                var hitCollider = hitColliders[i];
+                // deal damage based on collider 
             }
         }
 

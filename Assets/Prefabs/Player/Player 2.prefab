@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 414979660640924950}
   - component: {fileID: 2805176878408658605}
   - component: {fileID: 4509337363819748273}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,8 +127,16 @@ PrefabInstance:
       value: Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 823826142618561569, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 823826142618561569, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       propertyPath: m_TagString
       value: Player 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2080162743180549440, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3309275211793804415, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       propertyPath: m_LocalPosition.x

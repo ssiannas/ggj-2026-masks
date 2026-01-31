@@ -213,6 +213,11 @@ namespace ggj_2026_masks.Enemies
 
                 case EnemyState.Attacking:
                     _movement.Stop();
+                    if (!_target)
+                    {
+                         ExitAttackState();
+                         break;
+                    }
                     var dirToTarget = _target.position - transform.position;
                     _movement.FaceTowards(dirToTarget);
 
