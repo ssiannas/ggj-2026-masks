@@ -22,6 +22,7 @@ namespace ggj_2026_masks.Enemies
 
         private EnemyMovementController _movement;
         private EnemyPathfindingController _pathfinding;
+        private Animator _animator;
 
         private IAttack _attack;
         [SerializeField] private UnityEvent onDeath;
@@ -57,6 +58,7 @@ namespace ggj_2026_masks.Enemies
         {
             _movement = GetComponent<EnemyMovementController>();
             _pathfinding = GetComponent<EnemyPathfindingController>();
+            _animator = GetComponentInChildren<Animator>();
             _attack = GetComponent<IAttack>();
             Hp = MaxHp;
         }
@@ -88,6 +90,13 @@ namespace ggj_2026_masks.Enemies
             }
 
             ExecuteCurrentState();
+
+            // Update animation
+            if (_animator != null)
+            {
+                var isMoving = Vector3.Magnitude(GetComponent<Rigidbody>().linearVelocity) > 0.001f;
+                _animator.SetBool("isMoving", isMoving);
+            }
         }
         
 

@@ -65,11 +65,15 @@ public class PlayerController : MonoBehaviour
             if (_health < 0) OnPlayerDeath.Invoke();
         }
     }
+    
+    // Animations
+    private Animator _animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
         _abilityContext = GetComponent<AbilityContext>();
         _abilityController = GetComponent<PlayerAbilityController>();
         OnAttackTriggered.AddListener(HandleAttack);
@@ -134,6 +138,12 @@ public class PlayerController : MonoBehaviour
         {
             var targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.y));
             transform.rotation = targetRotation;
+        }
+
+        // Update animation
+        if (_animator != null)
+        {
+            _animator.SetBool("isMoving", moveDirection.sqrMagnitude > 0.01f);
         }
     }
 

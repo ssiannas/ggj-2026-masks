@@ -32,7 +32,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FoxyMoveAnimation
+  m_Name: Moving
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4da7924aa1b50d149b0720e31e700dec, type: 2}
+  m_Motion: {fileID: 7400000, guid: f2d183890a38c3c4ca2ffb09fdb683f4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -108,7 +108,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Baddie1AnimatorController
+  m_Name: Baddie2AnimationController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isMoving
@@ -137,7 +137,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FoxyAnimationIdle
+  m_Name: Idle
   m_Speed: 0
   m_CycleOffset: 0
   m_Transitions:
@@ -151,7 +151,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a9eac2a9008dd394b8057a1239982495, type: 2}
+  m_Motion: {fileID: 7400000, guid: e6e3c4f50028a7641b79423f2b8b0616, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
