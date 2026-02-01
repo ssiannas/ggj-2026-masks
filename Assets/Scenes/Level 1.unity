@@ -3464,7 +3464,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-      objectReference: {fileID: 1747220039}
     - target: {fileID: 4280299583659584671, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.48586
@@ -3778,7 +3777,7 @@ PrefabInstance:
     - target: {fileID: 3066280624827336000, guid: 1c78dfd9911b0d54a9cba9f01a36907c, type: 3}
       propertyPath: _playerUIController
       value: 
-      objectReference: {fileID: 1366259548}
+      objectReference: {fileID: 1937655033}
     - target: {fileID: 3427818131075851446, guid: 1c78dfd9911b0d54a9cba9f01a36907c, type: 3}
       propertyPath: m_Layer
       value: 7

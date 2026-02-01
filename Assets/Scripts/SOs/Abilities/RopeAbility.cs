@@ -80,7 +80,7 @@ namespace ggj_2026_masks
         {
             var combinedLayers = LayerMask.GetMask("Enemies", "Obastacles", "Player");
 
-            if (!Physics.Raycast(origin, direction, out var hit, throwRange, combinedLayers))
+            if (!Physics.SphereCast(origin, 0.3f, direction, out var hit, throwRange, combinedLayers))
             {
                 Debug.Log("Rope hit tsoufio bruv.");
                 return (RopeHitType.None, Vector3.zero, null);
