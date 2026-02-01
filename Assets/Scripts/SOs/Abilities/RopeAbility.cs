@@ -17,7 +17,7 @@ namespace ggj_2026_masks
 
         public override void Execute(AbilityContext abilityContext)
         {
-            abilityContext.StartCoroutine(ExecuteRope(abilityContext));
+            abilityContext.PerformCoroutine(ExecuteRope(abilityContext));
         }
 
         private IEnumerator ExecuteRope(AbilityContext context)

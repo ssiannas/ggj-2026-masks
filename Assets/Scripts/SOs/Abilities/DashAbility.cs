@@ -12,7 +12,7 @@ namespace ggj_2026_masks
         [SerializeField] private float dashSpeed = 15f;
         public override void Execute(AbilityContext abilityContext)
         {
-            abilityContext.StartCoroutine(DashRoutine(abilityContext));
+            abilityContext.PerformCoroutine(DashRoutine(abilityContext));
         }
         
         public override float GetCooldown() => coolDownS;

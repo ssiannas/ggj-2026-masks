@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
     public FloatEvent OnHealthUpdated;
 
     // Dashing
-    [SerializeField] private float dashSpeed = 15.0f;
-    [SerializeField] private float dashDurationMs = 20.0f;
-    public UnityEvent OnDashTriggered;
+    // [SerializeField] private float dashSpeed = 15.0f;
+    // [SerializeField] private float dashDurationMs = 20.0f;
+    // public UnityEvent OnDashTriggered;
 
     // Dash state
     public bool isDashing;
@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
     
     // Abilities
     private PlayerAbilityController _abilityController;
-    private MaskAbility _activeAbility;
+    private MaskAbility _dashAbility;
+    private MaskAbility _charAbility;
     
     private bool IsStunned { get ; set; }
 
@@ -73,9 +74,14 @@ public class PlayerController : MonoBehaviour
         _abilityController = GetComponent<PlayerAbilityController>();
         OnAttackTriggered.AddListener(HandleAttack);
         _health = maxHealth;
-        _activeAbility = _abilityController.GetFirst();
+        _dashAbility = _abilityController.GetFirst();
+        _charAbility = _abilityController.GetNext();
+        if (_dashAbility is null || _charAbility is null)
+        {
+            throw new NullReferenceException("ability controller is null");
+        }
         OnPlayerDeath.AddListener(HandlePlayerDeath);
-        OnDashTriggered.AddListener(HandleDash);
+        // OnDashTriggered.AddListener(HandleDash);
         if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
         _interactionController = GetComponent<InteractionController>();
         _attackingController = GetComponent<PlayerAttackingController>();
@@ -153,12 +159,25 @@ public class PlayerController : MonoBehaviour
         var shouldDash = dashButton > 0.5f;
         //
         //if (shouldDash) OnDashTriggered.Invoke();
-        _abilityController.TryExecute(_activeAbility, _abilityContext);
+        if (shouldDash)
+        {
+            _abilityController.TryExecute(_dashAbility, _abilityContext);
+        }
+    }
+
+    private void OnAbility(InputValue value)
+    {
+        var ability = value.Get<float>();
+        var shouldCast = ability > 0.5f;
+        if (shouldCast)
+        {
+            _abilityController.TryExecute(_charAbility, _abilityContext);
+        }
     }
 
     private void SwapAbilities()
     {
-        _activeAbility = _abilityController.GetNext();
+        _dashAbility = _abilityController.GetNext();
     }
 
     private void OnTestDamage(InputValue value)

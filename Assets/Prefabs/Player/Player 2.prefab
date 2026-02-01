@@ -158,7 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e52f066013c3d49bf0aa3265d49c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.PlayerCollisionContext
-  PlayerController: {fileID: 0}
 --- !u!1001 &1624187094202155232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -229,12 +228,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8872432798473566062, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       propertyPath: abilities.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8872432798473566062, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
       propertyPath: 'abilities.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 1d5055244e9a1264cac817782d81d57a, type: 2}
+    - target: {fileID: 8872432798473566062, guid: f58a948137f9e9644b8b593e6542767c, type: 3}
+      propertyPath: 'abilities.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ebf812fa3a5bc64eb89e4e6fb32942c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8467292190252479439, guid: f58a948137f9e9644b8b593e6542767c, type: 3}

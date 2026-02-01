@@ -20,7 +20,7 @@ namespace ggj_2026_masks
 
         public override void Execute(AbilityContext ctx)
         {
-            ctx.StartCoroutine(ChargeRoutine(ctx));
+            ctx.PerformCoroutine(ChargeRoutine(ctx));
         }
 
         public override float GetCooldown()
@@ -38,7 +38,7 @@ namespace ggj_2026_masks
             var hitEnemies = new HashSet<Collider>();
             var hitPlayers = new HashSet<Collider>();
             
-            bool foundObstacle  = false;
+            // bool foundObstacle  = false;
 
             while (timer < chargeDuration)
             {

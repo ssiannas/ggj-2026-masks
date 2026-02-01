@@ -18,9 +18,9 @@ namespace ggj_2026_masks
             Animator = GetComponent<Animator>();
         }
 
-        public void StartCoroutine(IEnumerator routine)
+        public void PerformCoroutine(IEnumerator routine)
         {
-            ((MonoBehaviour)this).StartCoroutine(routine);
+            StartCoroutine(routine);
         }
     }
 }

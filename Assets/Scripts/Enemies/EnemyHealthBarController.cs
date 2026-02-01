@@ -7,7 +7,7 @@ namespace ggj_2026_masks.Enemies
     {
 
             [SerializeField] private HealthBarController healthBar;
-            [SerializeField] private bool faceCamera = true;
+            // [SerializeField] private bool faceCamera = true;
             [SerializeField] private Vector3 localOffset = new Vector3(0, 2f, 0);
 
             
