@@ -34,7 +34,6 @@ namespace ggj_2026_masks.Enemies.Attacking
                 _fireTimer -= Time.deltaTime;
                 if (_fireTimer <= 0f)
                 {
-                    Debug.Log("Pew");
                     FireProjectile();
                 }
             }
@@ -69,7 +68,7 @@ namespace ggj_2026_masks.Enemies.Attacking
 
             if (projectile.TryGetComponent<Projectile>(out var proj))
             {
-                proj.Initialize(damage);
+                proj.Initialize(damage, gameObject);
             }
         }
 

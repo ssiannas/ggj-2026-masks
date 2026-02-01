@@ -345,10 +345,21 @@ namespace ggj_2026_masks.Enemies
     
             if (Hp <= 0)
             {
+                if (source is not null)
+                {
+                   RestoreKillerHealth(source); 
+                }
                 Die();
             }
         }
 
+        private void RestoreKillerHealth(GameObject killer)
+        {
+            if (killer.TryGetComponent<PlayerController>(out var player))
+            {
+                player.Health += 10;
+            }
+        }
 
         private void Die()
         {
