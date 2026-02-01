@@ -3424,6 +3424,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1304628046657702483, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2154009307589651649, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -3432,38 +3436,6 @@ PrefabInstance:
       propertyPath: _playerUIController
       value: 
       objectReference: {fileID: 1845381398}
-    - target: {fileID: 3111677766322295973, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3225254550433380329, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354593537126866735, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3382269866357739096, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3478834893477696355, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3679286487586021558, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3717872548872921291, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3852067711466973467, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 4280299583659584671, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.48586

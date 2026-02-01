@@ -11,9 +11,12 @@ namespace ggj_2026_masks.Enemies.Attacking
         [SerializeField] private Vector3 hitboxOffset = Vector3.forward;
         [SerializeField] private LayerMask targetLayers;
 
-        [Header("Timing")] 
-        [SerializeField, Tooltip("If this is more than the attack cooldown, the damage will never be applied")] 
+        [Header("Timing")]
+        [SerializeField, Tooltip("If this is more than the attack cooldown, the damage will never be applied")]
         private float damageDelay = 0.2f;
+
+        [Header("Indicator")]
+        [SerializeField] private GameObject attackIndicator;
         
         private Collider[] hitColliders = new Collider[10];
         
@@ -39,10 +42,12 @@ namespace ggj_2026_masks.Enemies.Attacking
         {
             _hasDamagedThisAttack = false;
             _damageTimer = damageDelay;
+            if (attackIndicator != null) attackIndicator.SetActive(true);
         }
 
         protected override void OnAttackFinish()
         {
+            if (attackIndicator != null) attackIndicator.SetActive(false);
         }
 
         private void DealDamage()
