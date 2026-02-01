@@ -3400,22 +3400,6 @@ PrefabInstance:
       propertyPath: _playerUIController
       value: 
       objectReference: {fileID: 1747220039}
-    - target: {fileID: 3320589473539419243, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: damage
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320589473539419243, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: damageDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320589473539419243, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: attackCooldown
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320589473539419243, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: attackDuration
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 4280299583659584671, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.48586
@@ -3456,10 +3440,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7902536490959976334, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
-      propertyPath: 'abilities.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 1d5055244e9a1264cac817782d81d57a, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
