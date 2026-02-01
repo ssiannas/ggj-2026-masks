@@ -27,9 +27,9 @@ public class PlayerController : MonoBehaviour
     public FloatEvent OnHealthUpdated;
 
     // Dashing
-    [SerializeField] private float dashSpeed = 15.0f;
-    [SerializeField] private float dashDurationMs = 20.0f;
-    public UnityEvent OnDashTriggered;
+    // [SerializeField] private float dashSpeed = 15.0f;
+    // [SerializeField] private float dashDurationMs = 20.0f;
+    // public UnityEvent OnDashTriggered;
 
     // Dash state
     public bool isDashing;
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         _health = maxHealth;
         _activeAbility = _abilityController.GetFirst();
         OnPlayerDeath.AddListener(HandlePlayerDeath);
-        OnDashTriggered.AddListener(HandleDash);
+        // OnDashTriggered.AddListener(HandleDash);
         if (_playerUIController is not null) OnHealthUpdated.AddListener(_playerUIController.SetHealthPercentage);
         _interactionController = GetComponent<InteractionController>();
         _attackingController = GetComponent<PlayerAttackingController>();
