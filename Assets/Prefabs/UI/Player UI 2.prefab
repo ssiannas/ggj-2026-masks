@@ -8,6 +8,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 685063596529317055, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9618028ee140b184094d1d55e7560e59, type: 3}
+    - target: {fileID: 685063596529317055, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 685063596529317055, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 685063596529317055, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493124823591936676, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: dashCD
+      value: 
+      objectReference: {fileID: 9199649711049303040}
+    - target: {fileID: 1493124823591936676, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: abilityCD
+      value: 
+      objectReference: {fileID: 3692969312359757033}
+    - target: {fileID: 2747166710020091366, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eeb81d38978d1664986bc758ce0ea022, type: 3}
     - target: {fileID: 4407390576504883069, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -92,6 +120,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5001947880314840150, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3cf6145723cfb884a8effbe7fc4c4569, type: 3}
+    - target: {fileID: 5001947880314840150, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.69803923
+      objectReference: {fileID: 0}
     - target: {fileID: 7036564705373792767, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
       propertyPath: m_Name
       value: Player UI 2
@@ -100,8 +136,46 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 7706869796138646799, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 170b1d1844b1be344a35142a6d5b57e1, type: 3}
+    - target: {fileID: 7706869796138646799, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.b
+      value: 0.4037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706869796138646799, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.g
+      value: 0.4037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 7706869796138646799, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+      propertyPath: m_Color.r
+      value: 0.4037736
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+--- !u!114 &3692969312359757033 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1899467537881118373, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+  m_PrefabInstance: {fileID: 2962334655456805452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c83046a202462f41a1d76333c450121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.CooldownIcon
+--- !u!114 &9199649711049303040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6248721423587305036, guid: 952641e262a5c2f4d99de08e19a3a5dd, type: 3}
+  m_PrefabInstance: {fileID: 2962334655456805452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c83046a202462f41a1d76333c450121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.CooldownIcon

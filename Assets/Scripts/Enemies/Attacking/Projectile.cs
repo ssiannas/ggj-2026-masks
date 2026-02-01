@@ -29,7 +29,7 @@ namespace ggj_2026_masks.Enemies.Attacking
             }
             else if (other.gameObject.TryGetComponent<EnemyController>(out var ec))
             {
-                ec.TakeDamage(_damage);
+                ec.TakeDamage(_damage, gameObject);
             }
             Destroy(gameObject);
         }

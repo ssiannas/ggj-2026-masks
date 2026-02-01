@@ -171,6 +171,8 @@ public class PlayerController : MonoBehaviour
         //if (shouldDash) OnDashTriggered.Invoke();
         if (shouldDash)
         {
+            if (!_abilityController.IsReady(_dashAbility)) return;
+            _playerUIController.StartDashCD(_dashAbility.GetCooldown());
             _abilityController.TryExecute(_dashAbility, _abilityContext);
         }
     }
@@ -181,6 +183,8 @@ public class PlayerController : MonoBehaviour
         var shouldCast = ability > 0.5f;
         if (shouldCast)
         {
+            if (!_abilityController.IsReady(_charAbility)) return;  
+            _playerUIController.StartAbilityCD(_charAbility.GetCooldown());
             _abilityController.TryExecute(_charAbility, _abilityContext);
         }
     }

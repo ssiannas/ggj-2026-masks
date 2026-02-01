@@ -69,7 +69,7 @@ namespace ggj_2026_masks.Enemies.Attacking
                 // Apply damage to enemy
                 if (go.TryGetComponent<EnemyController>(out var enemyController))
                 {
-                    enemyController.TakeDamage(damage);
+                    enemyController.TakeDamage(damage, gameObject);
                 }
             }
         }

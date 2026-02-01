@@ -1,12 +1,28 @@
 using ggj_2026_masks;
 using UnityEngine;
 
-public class PlayerUIController : MonoBehaviour
+namespace ggj_2026_masks
 {
-    [SerializeField] private HealthBarController healthBarController;
-
-    public void SetHealthPercentage(float pct)
+    public class PlayerUIController : MonoBehaviour
     {
-        healthBarController.SetHealthPercentage(pct);
+        [SerializeField] private HealthBarController healthBarController;
+
+        [SerializeField] private CooldownIcon dashCD;
+        [SerializeField] private CooldownIcon abilityCD;
+
+        public void SetHealthPercentage(float pct)
+        {
+            healthBarController.SetHealthPercentage(pct);
+        }
+
+        public void StartDashCD(float duration)
+        {
+            dashCD.TriggerCooldown(duration);
+        }
+
+        public void StartAbilityCD(float duration)
+        {
+            abilityCD.TriggerCooldown(duration);
+        }
     }
 }
