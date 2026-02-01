@@ -84,7 +84,7 @@ namespace ggj_2026_masks
                     enemy.ApplyKnockback(knockbackDir * knockbackForce, 1.0f);
             }
 
-            if (hit.TryGetComponent<EnemyController>(out var enemyController)) enemyController.TakeDamage(damage);
+            if (hit.TryGetComponent<EnemyController>(out var enemyController)) enemyController.TakeDamage(damage, ctx.gameObject);
         }
     }
 }

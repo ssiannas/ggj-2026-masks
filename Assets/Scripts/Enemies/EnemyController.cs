@@ -33,6 +33,7 @@ namespace ggj_2026_masks.Enemies
         private readonly List<GameObject> _players = new List<GameObject>();
         private float _stunTimer;
         public float MaxHp { get; } = 100f;
+        private bool _tookDamage = false;
 
 
         public float Hp { get; private set; }
@@ -162,7 +163,7 @@ namespace ggj_2026_masks.Enemies
                 
                 var distance = Vector3.Distance(transform.position, player.transform.position);
 
-                if (!alwaysChase && distance > detectionRange)
+                if (!alwaysChase && !_tookDamage && distance > detectionRange)
                     continue;
 
                 if (!HasLineOfSight(player.transform.position))
@@ -314,14 +315,31 @@ namespace ggj_2026_masks.Enemies
             }
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject source)
         {
             Hp -= damage;
+            _tookDamage = true;
+    
+            // Aggro onto the damage source - chase regardless of distance
+            if (source is not null)
+            {
+                _target = source.transform;
+                _hasTarget = true;
+                _lastKnownTargetPosition = source.transform.position;
+        
+                if (CurrentState != EnemyState.Stunned)
+                {
+                    CurrentState = EnemyState.Chasing;
+                    _pathfinding.ForcePathUpdate();
+                }
+            }
+    
             if (Hp <= 0)
             {
                 Die();
             }
         }
+
 
         private void Die()
         {
