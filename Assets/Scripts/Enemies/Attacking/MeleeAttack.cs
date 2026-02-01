@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ggj_2026_masks.Enemies.Attacking
@@ -10,7 +11,9 @@ namespace ggj_2026_masks.Enemies.Attacking
         [SerializeField] private Vector3 hitboxOffset = Vector3.forward;
         [SerializeField] private LayerMask targetLayers;
 
-        [Header("Timing")] [SerializeField] private float damageDelay = 0.2f;
+        [Header("Timing")] 
+        [SerializeField, Tooltip("If this is more than the attack cooldown, the damage will never be applied")] 
+        private float damageDelay = 0.2f;
         
         private Collider[] hitColliders = new Collider[10];
         
@@ -21,7 +24,10 @@ namespace ggj_2026_masks.Enemies.Attacking
         {
             base.Update();
 
-            if (!_isAttacking || _hasDamagedThisAttack) return;
+            if (!_isAttacking || _hasDamagedThisAttack)
+            {
+                return;
+            }
             _damageTimer -= Time.deltaTime;
             if (_damageTimer <= 0f)
             {
@@ -55,6 +61,8 @@ namespace ggj_2026_masks.Enemies.Attacking
                 var go = hitCollider.gameObject;
                 if (go.TryGetComponent<PlayerCollisionContext>(out var playerCollisionContext))
                 {
+                    // Do not damage players on the same layer as the attacker
+                    if (gameObject.layer == LayerMask.NameToLayer("Player")) continue;
                     playerCollisionContext.PlayerController.ApplyDamage(damage);
                 }
                 
