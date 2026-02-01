@@ -60,3 +60,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cdc22c5860fe3a43a966a83a3478db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ggj_2026_masks.GameConditionsChecker
+  audioChannel: {fileID: 11400000, guid: 778f04e0b47f8434592e9ba15c875959, type: 2}

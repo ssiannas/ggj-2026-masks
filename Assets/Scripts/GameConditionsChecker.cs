@@ -7,7 +7,7 @@ namespace ggj_2026_masks
     public class GameConditionsChecker : MonoBehaviour
     {
         public static GameConditionsChecker Instance { get; private set; }
-
+        [SerializeField] private AudioChannel audioChannel;
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -17,6 +17,7 @@ namespace ggj_2026_masks
             }
 
             Instance = this;
+            audioChannel.PlayAudio("main_theme");
         }
 
         public bool AllEnemiesDead()
