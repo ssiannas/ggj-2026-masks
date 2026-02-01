@@ -3330,7 +3330,7 @@ PrefabInstance:
     - target: {fileID: 947251913280796064, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: c37195b0a364fcd409cf6be4cc099f35, type: 2}
+      objectReference: {fileID: 9100000, guid: 1cc4799ca2ec55e4387fa009ee36fd3d, type: 2}
     - target: {fileID: 2154009307589651649, guid: 21f708b6e407e1c4290fc4513f4c2d84, type: 3}
       propertyPath: m_Name
       value: Player 1
