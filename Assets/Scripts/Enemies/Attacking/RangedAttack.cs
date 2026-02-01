@@ -66,7 +66,7 @@ namespace ggj_2026_masks.Enemies.Attacking
 
             if (projectile.TryGetComponent<Projectile>(out var proj))
             {
-                proj.Initialize(damage);
+                proj.Initialize(damage, null);
             }
         }
 

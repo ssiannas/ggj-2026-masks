@@ -8,9 +8,11 @@ namespace ggj_2026_masks.Enemies.Attacking
         [SerializeField] private LayerMask targetLayers;
 
         private int _damage;
+        public GameObject Source {  get; private set; }
 
-        public void Initialize(int damage)
+        public void Initialize(int damage, GameObject source)
         {
+            Source = source;
             _damage = damage;
             Destroy(gameObject, lifetime);
         }
@@ -29,7 +31,7 @@ namespace ggj_2026_masks.Enemies.Attacking
             }
             else if (other.gameObject.TryGetComponent<EnemyController>(out var ec))
             {
-                ec.TakeDamage(_damage, gameObject);
+                ec.TakeDamage(_damage, Source.gameObject);
             }
             Destroy(gameObject);
         }
