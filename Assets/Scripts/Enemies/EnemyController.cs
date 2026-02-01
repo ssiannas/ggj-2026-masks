@@ -93,7 +93,7 @@ namespace ggj_2026_masks.Enemies
             // Update animation
             if (_animator != null)
             {
-                var isMoving = CurrentState == EnemyState.Chasing || CurrentState == EnemyState.SearchingLastKnown;
+                var isMoving = Vector3.Magnitude(GetComponent<Rigidbody>().linearVelocity) > 0.001f;
                 _animator.SetBool("isMoving", isMoving);
             }
         }
